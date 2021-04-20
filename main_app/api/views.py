@@ -3,31 +3,31 @@ from ..models import Article, Country, Source
 from .serializers import ArticleSerializer, CountrySerializer, SourceSerializer
 
 
-class ArticleListView(generics.ListAPIView):
+class ArticleListView(generics.ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
 
-class ArticleDetailView(generics.RetrieveAPIView):
+class ArticleDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
 
-class CountryListView(generics.ListAPIView):
+class CountryListView(generics.ListCreateAPIView):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
 
-class CountryDetailView(generics.RetrieveAPIView):
+class CountryDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
 
-class SourceListView(generics.ListAPIView):
+class SourceListView(generics.ListCreateAPIView):
     queryset = Source.objects.all()
     serializer_class = SourceSerializer
 
 
-class SourceDetailView(generics.RetrieveAPIView):
+class SourceDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Source.objects.all()
     serializer_class = SourceSerializer
