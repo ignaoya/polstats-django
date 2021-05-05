@@ -86,3 +86,11 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+#Setup for integration with Django
+import sys
+import os
+sys.path.append('/home/igna/Documents/prog/py/polstats-django/')
+os.environ['DJANGO_SETTINGS_MODULE'] = 'polstats.settings'
+import django
+django.setup()
