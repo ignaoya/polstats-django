@@ -20,8 +20,8 @@ class ArticleSpider(CrawlSpider):
 
     def parse_items(self, response):
         article = ArticleItem()
+        divs = response.xpath('//div')
         article["url"] = response.url
         article["title"] = response.css('h1::text').extract_first()
-        # the django models don't have a text field at the moment
-        #article["text"] = response.css('.article__text text::text').extract()
+        article["text"] = ''.join(divs.xpath('.//p').extract())
         return article

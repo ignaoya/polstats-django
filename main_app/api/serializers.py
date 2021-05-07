@@ -17,4 +17,4 @@ class SourceSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
-        fields = ['url', 'title', 'rating', 'date', 'length', 'source', 'countries']
+        fields = ['url', 'title', 'text', 'rating', 'date', 'length', 'source', 'countries']
