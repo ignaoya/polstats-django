@@ -19,7 +19,7 @@ class RTArticleSpider(CrawlSpider):
         'CLOSESPIDER_PAGECOUNT': COUNT_MAX
     }
 
-    def parse_items(self, response):
+    def parse_items(self, response: Response) -> ArticleItem:
         article = ArticleItem()
         divs = response.xpath('//div')
         article["url"] = response.url
@@ -30,7 +30,7 @@ class RTArticleSpider(CrawlSpider):
         article["source"] = self.get_source('RT', 'www.rt.com', 'Russia')
         return article
 
-    def get_source(self, name, url, country):
+    def get_source(self, name: str, url: str, country: str) -> Source:
         source = Source.objects.filter(name=name)
         if source:
             source = source[0]
@@ -41,7 +41,7 @@ class RTArticleSpider(CrawlSpider):
             source.save()
         return source
 
-    def get_country(self, name):
+    def get_country(self, name: str) -> Country:
         country = Country.objects.filter(name=name)
         if country:
             country = country[0]
