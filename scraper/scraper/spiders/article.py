@@ -1,10 +1,10 @@
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from scraper.items import ArticleItem
+from sentiment.sentiment_analyzer import get_article_sentiment
 
-
-class ArticleSpider(CrawlSpider):
-    name = 'article'
+class RTArticleSpider(CrawlSpider):
+    name = 'RTarticle'
     allowed_domains = ['www.rt.com']
     start_urls = ['https://www.rt.com']
     rules = [
@@ -24,4 +24,5 @@ class ArticleSpider(CrawlSpider):
         article["url"] = response.url
         article["title"] = response.css('h1::text').extract_first()
         article["text"] = ''.join(divs.xpath('.//p').extract())
+        article["rating"] = get_article_sentiment(article["text"])
         return article
