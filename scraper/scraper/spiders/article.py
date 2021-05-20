@@ -20,20 +20,6 @@ class RTArticleSpider(CrawlSpider):
     }
 
     def parse_items(self, response):
-        source = Source.objects.filter(name='RT')
-        if source:
-            source = source[0]
-        else:
-            country = Country.objects.filter(name='Russia')
-            if country:
-                country = country[0]
-            else:
-                country = Country(name='Russia')
-                country.save()
-            source = Source(url="www.rt.com", 
-                            name="RT",
-                            origin=country)
-            source.save()
         article = ArticleItem()
         divs = response.xpath('//div')
         article["url"] = response.url
@@ -41,5 +27,26 @@ class RTArticleSpider(CrawlSpider):
         article["text"] = ''.join(divs.xpath('.//p').extract())
         article["rating"] = get_article_sentiment(article["text"])
         article["length"] = len(article["text"])
-        article["source"] = source
+        article["source"] = self.get_source('RT', 'www.rt.com', 'Russia')
         return article
+
+    def get_source(self, name, url, country):
+        source = Source.objects.filter(name=name)
+        if source:
+            source = source[0]
+        else:
+            source = Source(url=url, 
+                            name=name,
+                            origin=self.get_country(country))
+            source.save()
+        return source
+
+    def get_country(self, name):
+        country = Country.objects.filter(name=name)
+        if country:
+            country = country[0]
+        else:
+            country = Country(name=name)
+            country.save()
+        return country
+
