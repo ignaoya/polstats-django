@@ -28,10 +28,11 @@ class Source(models.Model):
 class Article(models.Model):
     url = models.CharField(max_length=500)
     title = models.TextField()
-    rating = models.IntegerField(default=0)
-    date = models.DateField(default=date.today)
-    length = models.IntegerField(default=0)
-    source = models.ForeignKey(Source, on_delete=models.CASCADE, related_name='source_articles')
+    text = models.TextField(blank=True, null=True)
+    rating = models.IntegerField(default=0, blank=True, null=True)
+    date = models.DateField(default=date.today, blank=True, null=True)
+    length = models.IntegerField(default=0, blank=True, null=True)
+    source = models.ForeignKey(Source, on_delete=models.CASCADE, related_name='source_articles', blank=True, null=True)
     countries = models.ManyToManyField(Country, related_name='country_articles')
 
     class Meta:
