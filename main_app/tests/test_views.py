@@ -30,7 +30,7 @@ class GetAllArticlesTest(TestCase):
                                length=20,
                                source=self.source)
 
-    def test_get_valid_single_article(self):
+    def test_get_valid_article_list(self):
         req = RequestFactory().get('/')
         response = ArticleListView.as_view()(req, *[], **{})
         articles = Article.objects.all()
