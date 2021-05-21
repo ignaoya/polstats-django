@@ -1,10 +1,10 @@
+import pycountry
 from django.db import models
 from datetime import date
 
 
 class Country(models.Model):
     name = models.CharField(max_length=250)
-    #articles = models.ManyToManyField(Article, related_name='article_countries')
 
     class Meta:
         ordering = ('name',)
@@ -40,6 +40,21 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title + '-' +  self.source.name
+
+    def get_countries(self):
+        countries = []
+        for country in pycountry.countries:
+            if country.name in self.text:
+                new_country = Country.objects.filter(name=country.name)
+                if new_country:
+                    new_country = new_country[0]
+                else:
+                    new_country = Country(name=country.name)
+                    new_country.save()
+                countries.append(new_country)
+        self.countries.add(*countries)
+        self.save()
+
 
 
 
