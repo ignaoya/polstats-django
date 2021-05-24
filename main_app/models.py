@@ -9,7 +9,7 @@ class Country(models.Model):
     class Meta:
         ordering = ('name',)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name
 
 
@@ -21,7 +21,7 @@ class Source(models.Model):
     class Meta:
         ordering = ('name',)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.name + '-' + self.origin.name
 
 
@@ -38,10 +38,10 @@ class Article(models.Model):
     class Meta:
         ordering = ('-date',)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title + '-' +  self.source.name
 
-    def get_countries(self):
+    def get_countries(self) -> None:
         countries = []
         for country in pycountry.countries:
             if country.name in self.text:

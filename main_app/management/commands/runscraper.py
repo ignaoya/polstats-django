@@ -9,7 +9,7 @@ from main_app.models import Article
 class Command(BaseCommand):
     help = 'Runs the scraper'
 
-    def handle(self, *args, **kwargs):
+    def handle(self, *args, **kwargs) -> None:
         process = CrawlerProcess(get_project_settings())
         process.crawl(RTArticleSpider)
         process.start()
