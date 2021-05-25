@@ -1,6 +1,6 @@
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
-from scraper.items import ArticleItem
+from scraper.scraper.items import ArticleItem
 from sentiment.sentiment_analyzer import get_article_sentiment
 from main_app.models import Source, Country
 
@@ -19,7 +19,7 @@ class RTArticleSpider(CrawlSpider):
         'CLOSESPIDER_PAGECOUNT': COUNT_MAX
     }
 
-    def parse_items(self, response: Response) -> ArticleItem:
+    def parse_items(self, response) -> ArticleItem:
         article = ArticleItem()
         divs = response.xpath('//div')
         article["url"] = response.url
