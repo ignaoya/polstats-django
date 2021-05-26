@@ -1,6 +1,6 @@
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
-from scraper.scraper.items import ArticleItem
+from scraper.items import ArticleItem
 from sentiment.sentiment_analyzer import get_article_sentiment
 from main_app.models import Source, Country
 
