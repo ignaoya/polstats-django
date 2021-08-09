@@ -26,7 +26,7 @@ class Source(models.Model):
 
 
 class Article(models.Model):
-    url = models.CharField(max_length=500)
+    url = models.CharField(max_length=500, unique=True)
     title = models.TextField()
     text = models.TextField(blank=True, null=True)
     rating = models.IntegerField(default=0, blank=True, null=True)
