@@ -1,0 +1,32 @@
+version: '3'
+services:
+
+  database:
+    image: postgres:12-alpine
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=results
+      - POSTGRES_DB=results
+    ports:
+      - 5433:5432
+    networks:
+      - default
+    volumes:
+      - ./data:/var/lib/postgresql/data:z
+  app:
+    container_name: polstats
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver  0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    tty: true
+    networks:
+      - default
+
+volumes:
+  data:
